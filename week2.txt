@@ -1,0 +1,165 @@
+Thinking1、MVC框架指的是什么？
+答：
+一、Web的MVC设计理念和MVC框架：
+
+Servlet、TomCat、JSP和Web.xml之间的联系；
+
+（1）浏览器发送请求到收到响应，简要的过程如下：
+浏览器发送请求后，由Web.xml中规定的协议，进入TomCat中特定的Servlet，服务器先到Web-Content中找有没有对应的html/jsp页面，
+如果没有再到WEB-INF目录下的xml配置文件中找映射，通过映射找到响应文件html/jsp，响应给浏览器。
+
+（2）浏览器再点击JSP页面后，再次发送请求，接下来的处理就可以用下面的MVC设计理念来讲解：
+
+MVC，全称Model View Controller，即模型-视图-控制器；
+
+1. Model（模型）：
+是Web应用中用于处理数据逻辑的部分，包括Service层和Dao层；
+Service层用于和数据库联动，放置业务逻辑代码，处理数据库的增删改查，
+Dao层用于放各种接口，以备调用；
+
+2. View（视图）：
+是Web应用中处理响应给客户的页面的部分，例如我们写的html静态页面，jsp动态页面，这些最终响应给浏览器的页面都是视图；
+通常视图是依据模型数据来创建的；
+
+3. Controller（控制器）：
+在Web应用中，简而言之，就是Servlet，或者SpringMVC框架中加了注解@Controller的方法（实际上一个方法就相当于一个对应的Servlet）；
+
+首先，浏览器发送请求，JSP页面响应给客户，客户点击JSP页面上的内容，再次提交请求；
+这一次，请求到Controller控制器模块，也就是Servlet服务器中，
+Servlet服务器通过分析请求，判断客户的需求，
+然后调用Model模型，用Service层处理数据库的增删改查，用Dao层提供接口支持，
+然后Servlet将数据驱动到View视图层也就是JSP页面中，
+将JSP页面响应给浏览器，客户看到动态的内容。
+
+在这个过程中，最典型的的MVC模型就是 JavaBean + JSP + Servlet的模式，各司其职，分工合作；这种设计理念可以把html代码块和业务逻辑代码块分开，让代码更清晰，便于开发。
+
+而依据MVC设计模式，来搭建的MVC框架，则是该设计模式思想的具体实现，它强制性的使应用程序输入、处理和输出分开。
+使用MVC应用程序被分成三个核心部件：模型、视图、控制器。它们各自处理自己的任务。
+
+二、Web的经典三层架构
+
+Web经典三层架构是指：
+1. 表现层，UI，User Interface：
+主要接受用户的请求和把相应的页面响应给用户浏览器；
+其中aspx页面，对应MVC中的视图（View），即JSP页面；
+而aspx.cs页面，对应MVC中的控制器（Controller），即Servlet服务器；
+
+2. 业务逻辑层，BLL，Business Logic Layer:
+对应MVC中模型（Model）中的Service层，与数据库联动处理增删改查；
+
+3. 数据访问层/持久层，DAL，Data Access Layer：
+对应MVC中模型（Model）中的Dao层，提供接口支持；
+
+三、Web的五大主流框架（简介）
+
+1. Spring框架
+核心是DI(Dependency Injection)（依赖注入）和IOC(Inversion of Control)（反转控制）；
+（1）Spring框架对Web的支持是，SpringMVC框架
+（2）Spring框架对持久层的支持是，JDBCTemplate
+
+2. SpringMVC框架
+优势是优化了B/S结构（浏览器-服务器），简化了Servlet的创建
+
+在其他框架中，一个url请求需要new一个新的Servlet与之相对应，
+在SpringMVC框架中，由于DispatcherServlet的存在，任何的url（除了jsp外）它都能处理，然后依据映射找到一个对应的@Controller的注解类，就相当于一个Servlet；
+
+相当于把Servlet转变成了注解类，多个注解类可以写在同一个java文件中，代码方式简洁、优雅；
+
+补充一下maven仓库的作用：
+maven仓库可以通过<denpendency 标签，由GAV信息导入所需要的jar包，不同的jar包GAV代码在官网可直接查找，导入jar包的方式简单方便。
+3. Mybatis框架
+它的作用是可以与数据库进行联动，在其中写sql语句，进行数据库的增删改查；
+
+4. Hibernate框架
+
+5. Struts2框架
+
+
+Thinking2、基于Python的可视化技术都有哪些，你使用过哪些？
+答：
+Python相关的开发工作，很难绕过数据这一关，无论是做数据分析与挖掘，还是机器学习、计算机视觉。因此，一款好用的Python可视化工具，
+可以让开发效率得到极大的提升。介绍6款Python可视化工具，它们各有所长，适用于不同的场景。
+
+1.matplotlib
+matplotlib可以称得上中规中矩，它像大多数编程语言的标准库一样，读写、显示、子图、常见图形，可以满足大多数需求常见。
+
+2.pyecharts
+pyecharts是基于百度开源的Echarts开发的Python版可视化工具。
+
+如果说matplotlib中规中矩，那么pyecharts可以称得上强大，例如，
+
+支持多达400+地图
+
+支持Jupyter Notebook、JupyterLab
+
+可轻松集成至 Flask，Sanic，Django 等主流 Web 框架
+
+...
+
+ 
+from pyecharts.charts import Bar
+from pyecharts import options as opts
+
+# V1 版本开始支持链式调用
+bar = (
+    Bar()
+    .add_xaxis(["衬衫", "毛衣", "领带", "裤子", "风衣", "高跟鞋", "袜子"])
+    .add_yaxis("商家A", [114, 55, 27, 101, 125, 27, 105])
+    .add_yaxis("商家B", [57, 134, 137, 129, 145, 60, 49])
+    .set_global_opts(title_opts=opts.TitleOpts(title="某商场销售情况"))
+)
+bar.render()
+
+# 不习惯链式调用的开发者依旧可以单独调用方法
+bar = Bar()
+bar.add_xaxis(["衬衫", "毛衣", "领带", "裤子", "风衣", "高跟鞋", "袜子"])
+bar.add_yaxis("商家A", [114, 55, 27, 101, 125, 27, 105])
+bar.add_yaxis("商家B", [57, 134, 137, 129, 145, 60, 49])
+bar.set_global_opts(title_opts=opts.TitleOpts(title="某商场销售情况"))
+bar.render()
+
+更重要的是pyecharts可以保存为离线的HTML文件，能够将图标详细数据离线保存，便于离线分析。
+
+3.plotly.py
+plotly.py是基于plotly.js进行开发，它继承了plotly.js的诸多优点，例如，可以绘制科学图表，3D图形，统计图表，SVG地图，财务图表等丰富图形。
+
+4.AutoViz
+数据可视化，大多数都需要把数据读取到内存中，然后对内存中的数据进行可视化。但是，对于真正令人头疼的是一次又一次的开发读取离线文件的数据接口。
+AutoViz可以做到1行代码轻松实现可视化。它可以同时兼容txt、json、csv等主流离线数据格式，
+比较适合于机器学习、计算机视觉等涉及离线数据较多的应用场景。
+
+5.Altair
+Altair是一款基于Vega 和Vega-Lite开发的统计可视化库。
+
+import altair as alt
+from vega_datasets import data
+
+source = data.unemployment_across_industries.url
+
+alt.Chart(source).mark_area().encode(
+    alt.X('yearmonth(date):T',
+        axis=alt.Axis(format='%Y', domain=False, tickSize=0)
+    ),
+    alt.Y('sum(count):Q', stack='center', axis=None),
+    alt.Color('series:N',
+        scale=alt.Scale(scheme='category20b')
+    )
+).interactive()
+
+Altair构建在强大的Vega-Lite JSON规范之上，并且具有API简单、友好、一致等诸多优点。因此，通过使用Altair，
+你可以把更多时间花费在理解数据和业务逻辑上，用最简短的代码实现数据可视化。
+
+6.cufflinks
+cufflinks结合了plotly的强大功能和panda的灵活性，可以方便地进行绘图，因此，就不需要在数据可视化过程中，
+对数据存储结构和数据类型进行复杂的转化了。
+df=cf.datagen.ohlc()
+qf=cf.QuantFig(df,title='First Quant Figure',legend='top',name='GS')
+qf.add_bollinger_bands()
+qf.iplot()
+上述介绍的6款Python可视化工具，各有所长，特色明显：
+
+matplotlib适用场景广泛、中规中矩。
+
+AutoViz适合离线数据可视化。
+
+plotly.py见长与交互可视化。
